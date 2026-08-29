@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You ♡</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            background: #050505;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+
+        .container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        /* =========================
+           OPENING
+        ========================= */
+
+        #opening {
+            text-align: center;
+            transition: 1s ease;
+        }
+
+        #opening h1 {
+            font-size: 24px;
+            font-weight: 400;
+            margin-bottom: 25px;
+            opacity: 0.9;
+        }
+
+        #openButton {
+            padding: 14px 32px;
+            border: 1px solid rgba(255,255,255,0.4);
+            border-radius: 50px;
+            background: rgba(255,255,255,0.05);
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        #openButton:hover {
+            background: rgba(255,255,255,0.15);
+            transform: scale(1.05);
+        }
+
+        #opening.hide {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* =========================
+           HEART
+        ========================= */
+
+        #heartContainer {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+
+            left: 50%;
+            top: 50%;
+
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        .heart {
+            position: absolute;
+
+            left: 50%;
+            top: 50%;
+
+            font-size: 12px;
+            color: #ff4f81;
+
+            transform: translate(-50%, -50%) scale(0);
+
+            opacity: 0;
+
+            text-shadow:
+                0 0 5px #ff4f81,
+                0 0 12px #ff4f81;
+
+            animation: appear 0.45s ease forwards;
+        }
+
+        @keyframes appear {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0);
+            }
+
+            60% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.4);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        /* =========================
+           FINAL MESSAGE
+        ========================= */
+
+        #message {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+
+            transform: translate(-50%, -50%);
+
+            text-align: center;
+
+            opacity: 0;
+            pointer-events: none;
+
+            transition: 2s ease;
+        }
+
+        #message.show {
+            opacity: 1;
+        }
+
+        #message h2 {
+            font-size: 38px;
+            margin-bottom: 12px;
+        }
+
+        #message p {
+            font-size: 16px;
+            opacity: 0.7;
+        }
+
+        /* Heart selesai berdenyut */
+
+        #heartContainer.finished .heart {
+            animation:
+                appear 0.45s ease forwards,
+                heartbeat 2s ease-in-out infinite 1s;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% {
+                filter: brightness(1);
+            }
+
+            50% {
+                transform: translate(-50%, -50%) scale(1.15);
+                filter: brightness(1.5);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div id="opening">
+
+            <h1>I made something for you...</h1>
+
+            <button id="openButton">
+                Open ♡
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- Tempat heart dibuat -->
+    <div id="heartContainer"></div>
+
+    <!-- Pesan akhir -->
+    <div id="message">
+
+        <h2>Happy Birthday ♡</h2>
+
+        <p>
+            I hope your day is as special as you are.
+        </p>
+
+    </div>
+
+
+    <script>
+
+        const button = document.getElementById("openButton");
+        const opening = document.getElementById("opening");
+        const heartContainer = document.getElementById("heartContainer");
+        const message = document.getElementById("message");
+
+
+        button.addEventListener("click", () => {
+
+            // Hilangkan opening
+            opening.classList.add("hide");
+
+
+            /*
+                ==========================================
+                HEART EQUATION
+                ==========================================
+
+                Ini diambil dari kode Python lu:
+
+                x = 16 * (sin(angle)^3)
+
+                y =
+                13cos(angle)
+                - 5cos(2angle)
+                - 2cos(3angle)
+                - cos(4angle)
+            */
+
+            const total = 120;
+
+            const scale = 16;
+
+
+            for (let i = 0; i < total; i++) {
+
+                const angle =
+                    i * (Math.PI * 2) / total;
+
+
+                // Rumus X
+                const x =
+                    16 *
+                    Math.pow(Math.sin(angle), 3);
+
+
+                // Rumus Y
+                const y =
+                    13 * Math.cos(angle)
+                    - 5 * Math.cos(2 * angle)
+                    - 2 * Math.cos(3 * angle)
+                    - Math.cos(4 * angle);
+
+
+                /*
+                    Buat love
+                */
+
+                const heart = document.createElement("span");
+
+                heart.classList.add("heart");
+
+                heart.innerHTML = "♥";
+
+
+                /*
+                    Convert koordinat matematika
+                    menjadi posisi layar.
+                */
+
+                const screenX = x * scale;
+
+                const screenY = -y * scale;
+
+
+                heart.style.left =
+                    `calc(50% + ${screenX}px)`;
+
+                heart.style.top =
+                    `calc(50% + ${screenY}px)`;
+
+
+                /*
+                    Sedikit variasi ukuran
+                    biar tidak terlalu kaku.
+                */
+
+                const size =
+                    8 + Math.random() * 7;
+
+                heart.style.fontSize =
+                    `${size}px`;
+
+
+                /*
+                    Warna random pink/red
+                */
+
+                const colors = [
+                    "#ff4f81",
+                    "#ff6b9a",
+                    "#ff3366",
+                    "#ff8fab",
+                    "#ff1744"
+                ];
+
+                heart.style.color =
+                    colors[
+                        Math.floor(
+                            Math.random() * colors.length
+                        )
+                    ];
+
+
+                /*
+                    Masukkan ke halaman
+                */
+
+                heartContainer.appendChild(heart);
+
+
+                /*
+                    INI BAGIAN PENTING.
+
+                    Setiap love muncul
+                    dengan delay berbeda.
+
+                    Jadi bukan langsung muncul semua.
+                */
+
+                heart.style.animationDelay =
+                    `${i * 0.025}s`;
+            }
+
+
+            /*
+                Total waktu:
+
+                120 × 0.025
+                = 3 detik
+
+                Setelah itu heart selesai.
+            */
+
+            setTimeout(() => {
+
+                heartContainer.classList.add("finished");
+
+            }, 3500);
+
+
+            /*
+                Setelah heart selesai,
+                munculkan pesan.
+            */
+
+            setTimeout(() => {
+
+                message.classList.add("show");
+
+            }, 5000);
+
+        });
+
+    </script>
+
+</body>
+</html>
