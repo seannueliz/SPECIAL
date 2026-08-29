@@ -1,6 +1,7 @@
 ```html
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -39,11 +40,8 @@
             height: 100vh;
 
             display: flex;
-
             justify-content: center;
             align-items: center;
-
-            flex-direction: column;
         }
 
 
@@ -67,10 +65,13 @@
         }
 
 
-        #openButton {
+        #openButton,
+        #continueButton,
+        #memoryButton {
+
             padding: 14px 32px;
 
-            border: 1px solid rgba(255,255,255,0.4);
+            border: 1px solid rgba(255,255,255,0.3);
 
             border-radius: 50px;
 
@@ -78,17 +79,20 @@
 
             color: white;
 
-            font-size: 16px;
+            font-size: 15px;
 
             cursor: pointer;
 
-            transition: 0.3s;
-
             backdrop-filter: blur(10px);
+
+            transition: 0.3s ease;
         }
 
 
-        #openButton:hover {
+        #openButton:hover,
+        #continueButton:hover,
+        #memoryButton:hover {
+
             background: rgba(255,255,255,0.15);
 
             transform: scale(1.05);
@@ -96,6 +100,7 @@
 
 
         #opening.hide {
+
             opacity: 0;
 
             pointer-events: none;
@@ -154,14 +159,12 @@
         @keyframes appear {
 
             0% {
-
                 opacity: 0;
 
                 transform:
                     translate(-50%, -50%)
                     scale(0);
             }
-
 
             60% {
 
@@ -171,7 +174,6 @@
                     translate(-50%, -50%)
                     scale(1.4);
             }
-
 
             100% {
 
@@ -183,10 +185,6 @@
             }
         }
 
-
-        /* =========================================
-           HEARTBEAT
-        ========================================= */
 
         #heartContainer.finished .heart {
 
@@ -202,10 +200,7 @@
                 transform:
                     translate(-50%, -50%)
                     scale(1);
-
-                filter: brightness(1);
             }
-
 
             50% {
 
@@ -309,16 +304,11 @@
 
             text-align: center;
 
-            max-width: 600px;
+            max-width: 650px;
 
             padding: 30px;
         }
 
-
-
-        /* =========================================
-           SCENE 2 TEXT
-        ========================================= */
 
         .small-text {
 
@@ -331,8 +321,7 @@
             transform:
                 translateY(20px);
 
-            transition:
-                1s ease;
+            transition: 1s ease;
         }
 
 
@@ -380,8 +369,7 @@
 
             opacity: 0;
 
-            transform:
-                scale(0.8);
+            transform: scale(0.8);
 
             transition:
                 1s ease 1.5s;
@@ -392,30 +380,9 @@
         }
 
 
-
-        /* =========================================
-           CONTINUE BUTTON
-        ========================================= */
-
         #continueButton {
 
             margin-top: 45px;
-
-            padding: 13px 28px;
-
-            border-radius: 50px;
-
-            border:
-                1px solid rgba(255,255,255,0.25);
-
-            background:
-                rgba(255,255,255,0.05);
-
-            color: white;
-
-            cursor: pointer;
-
-            font-size: 14px;
 
             opacity: 0;
 
@@ -428,22 +395,6 @@
                 background 0.3s ease;
         }
 
-
-        #continueButton:hover {
-
-            background:
-                rgba(255,255,255,0.15);
-
-            transform:
-                translateY(-2px)
-                scale(1.05);
-        }
-
-
-
-        /* =========================================
-           SCENE 2 ANIMATION
-        ========================================= */
 
         #scene2.show .small-text {
 
@@ -492,10 +443,276 @@
 
 
         /* =========================================
+           SCENE 3
+        ========================================= */
+
+        #scene3 {
+
+            position: fixed;
+
+            inset: 0;
+
+            background: #050505;
+
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            transition:
+                opacity 1.5s ease,
+                visibility 1.5s ease;
+
+            z-index: 30;
+
+            overflow-y: auto;
+        }
+
+
+        #scene3.show {
+
+            opacity: 1;
+
+            visibility: visible;
+        }
+
+
+        .memory-wrapper {
+
+            width: 90%;
+
+            max-width: 1000px;
+
+            text-align: center;
+
+            padding: 50px 20px;
+        }
+
+
+        .memory-title {
+
+            margin-bottom: 50px;
+        }
+
+
+        .memory-title p {
+
+            font-size: 12px;
+
+            letter-spacing: 5px;
+
+            opacity: 0.5;
+
+            margin-bottom: 18px;
+        }
+
+
+        .memory-title h2 {
+
+            font-size: 38px;
+
+            font-weight: 400;
+        }
+
+
+        .memory-title span {
+
+            display: block;
+
+            margin-top: 15px;
+
+            font-size: 15px;
+
+            opacity: 0.55;
+        }
+
+
+
+        /* =========================================
+           MEMORY CARDS
+        ========================================= */
+
+        .memory-container {
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 25px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .memory-card {
+
+            width: 260px;
+
+            min-height: 280px;
+
+            padding: 30px 25px;
+
+            border-radius: 18px;
+
+            border:
+                1px solid rgba(255,255,255,0.1);
+
+            background:
+                rgba(255,255,255,0.035);
+
+            backdrop-filter: blur(12px);
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            align-items: center;
+
+            opacity: 0;
+
+            transform:
+                translateY(50px)
+                scale(0.9);
+
+            transition:
+                opacity 1s ease,
+                transform 1s ease,
+                background 0.3s ease;
+        }
+
+
+        .memory-card:nth-child(1) {
+
+            transition-delay: 0.5s;
+        }
+
+
+        .memory-card:nth-child(2) {
+
+            transition-delay: 1s;
+        }
+
+
+        .memory-card:nth-child(3) {
+
+            transition-delay: 1.5s;
+        }
+
+
+        #scene3.show .memory-card {
+
+            opacity: 1;
+
+            transform:
+                translateY(0)
+                scale(1);
+        }
+
+
+        .memory-card:hover {
+
+            background:
+                rgba(255,255,255,0.07);
+
+            transform:
+                translateY(-8px)
+                scale(1.02);
+        }
+
+
+        .memory-number {
+
+            font-size: 12px;
+
+            letter-spacing: 3px;
+
+            opacity: 0.4;
+
+            margin-bottom: 25px;
+        }
+
+
+        .memory-icon {
+
+            font-size: 35px;
+
+            margin-bottom: 20px;
+
+            filter:
+                drop-shadow(
+                    0 0 10px
+                    rgba(255,79,129,0.5)
+                );
+        }
+
+
+        .memory-card h3 {
+
+            font-size: 20px;
+
+            font-weight: 400;
+
+            margin-bottom: 15px;
+        }
+
+
+        .memory-card p {
+
+            font-size: 14px;
+
+            line-height: 1.7;
+
+            opacity: 0.55;
+        }
+
+
+
+        /* =========================================
+           MEMORY BUTTON
+        ========================================= */
+
+        #memoryButton {
+
+            margin-top: 50px;
+
+            opacity: 0;
+
+            transform:
+                translateY(20px);
+
+            transition:
+                opacity 1s ease 2.5s,
+                transform 1s ease 2.5s,
+                background 0.3s ease;
+        }
+
+
+        #scene3.show #memoryButton {
+
+            opacity: 1;
+
+            transform:
+                translateY(0);
+        }
+
+
+
+        /* =========================================
            MOBILE
         ========================================= */
 
-        @media (max-width: 600px) {
+        @media (max-width: 700px) {
+
+            body {
+                overflow-y: auto;
+            }
+
 
             #heartContainer {
 
@@ -507,23 +724,38 @@
 
             .scene-content h2 {
 
-                font-size: 25px;
+                font-size: 26px;
             }
 
 
             .scene-content h1 {
 
-                font-size: 32px;
+                font-size: 34px;
             }
 
 
-            .description {
+            .memory-title h2 {
 
-                font-size: 14px;
+                font-size: 30px;
+            }
+
+
+            .memory-container {
+
+                flex-direction: column;
+
+                align-items: center;
+            }
+
+
+            .memory-card {
+
+                width: min(90vw, 330px);
             }
         }
 
     </style>
+
 </head>
 
 
@@ -544,9 +776,7 @@
 
 
             <button id="openButton">
-
                 Open ♡
-
             </button>
 
         </div>
@@ -556,7 +786,7 @@
 
 
     <!-- =========================================
-         HEART CONTAINER
+         HEART
     ========================================= -->
 
     <div id="heartContainer"></div>
@@ -591,16 +821,12 @@
 
 
             <p class="small-text">
-
                 HEY, YOU...
-
             </p>
 
 
             <h2>
-
                 Today is a little different.
-
             </h2>
 
 
@@ -614,15 +840,145 @@
 
 
             <h1>
-
                 Happy Birthday ♡
-
             </h1>
 
 
             <button id="continueButton">
-
                 Continue →
+            </button>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================================
+         SCENE 3
+    ========================================= -->
+
+    <div id="scene3">
+
+        <div class="memory-wrapper">
+
+
+            <div class="memory-title">
+
+                <p>
+                    A LITTLE SOMETHING
+                </p>
+
+
+                <h2>
+                    Do you remember?
+                </h2>
+
+
+                <span>
+                    Some moments are small,
+                    but somehow they stay with us.
+                </span>
+
+            </div>
+
+
+
+            <!-- MEMORY CARDS -->
+
+            <div class="memory-container">
+
+
+                <!-- CARD 01 -->
+
+                <div class="memory-card">
+
+                    <div class="memory-number">
+                        01
+                    </div>
+
+
+                    <div class="memory-icon">
+                        ♡
+                    </div>
+
+
+                    <h3>
+                        The Beginning
+                    </h3>
+
+
+                    <p>
+                        It all started with
+                        something simple...
+                    </p>
+
+                </div>
+
+
+
+                <!-- CARD 02 -->
+
+                <div class="memory-card">
+
+                    <div class="memory-number">
+                        02
+                    </div>
+
+
+                    <div class="memory-icon">
+                        ✦
+                    </div>
+
+
+                    <h3>
+                        That Moment
+                    </h3>
+
+
+                    <p>
+                        One of those little
+                        moments I still remember.
+                    </p>
+
+                </div>
+
+
+
+                <!-- CARD 03 -->
+
+                <div class="memory-card">
+
+                    <div class="memory-number">
+                        03
+                    </div>
+
+
+                    <div class="memory-icon">
+                        ♥
+                    </div>
+
+
+                    <h3>
+                        You
+                    </h3>
+
+
+                    <p>
+                        Somehow, you became
+                        someone really important.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <button id="memoryButton">
+
+                There's something else →
 
             </button>
 
@@ -640,7 +996,7 @@
            ELEMENTS
         ========================================= */
 
-        const button =
+        const openButton =
             document.getElementById("openButton");
 
         const opening =
@@ -655,267 +1011,329 @@
         const scene2 =
             document.getElementById("scene2");
 
+        const scene3 =
+            document.getElementById("scene3");
+
         const continueButton =
             document.getElementById("continueButton");
 
+        const memoryButton =
+            document.getElementById("memoryButton");
+
 
 
         /* =========================================
-           OPEN BUTTON
+           OPEN
         ========================================= */
 
-        button.addEventListener("click", () => {
+        openButton.addEventListener(
+            "click",
+            () => {
 
 
-            /*
-                Hilangkan opening
-            */
+                /*
+                    Hilangkan opening
+                */
 
-            opening.classList.add("hide");
-
-
-
-            /*
-                HEART EQUATION
-
-                Rumus dari Python lu:
-
-                x =
-                16 * sin(angle)^3
-
-                y =
-                13cos(angle)
-                - 5cos(2angle)
-                - 2cos(3angle)
-                - cos(4angle)
-            */
-
-
-            const total = 120;
-
-            const scale = 16;
-
-
-
-            /*
-                Buat 120 love
-            */
-
-            for (let i = 0; i < total; i++) {
-
-
-                const angle =
-                    i *
-                    (Math.PI * 2) /
-                    total;
+                opening.classList.add("hide");
 
 
 
                 /*
-                    X
+                    HEART EQUATION
                 */
 
-                const x =
-                    16 *
-                    Math.pow(
-                        Math.sin(angle),
-                        3
+                const total = 120;
+
+                const scale = 16;
+
+
+
+                for (
+                    let i = 0;
+                    i < total;
+                    i++
+                ) {
+
+
+                    const angle =
+                        i *
+                        (Math.PI * 2) /
+                        total;
+
+
+
+                    /*
+                        X
+                    */
+
+                    const x =
+                        16 *
+                        Math.pow(
+                            Math.sin(angle),
+                            3
+                        );
+
+
+
+                    /*
+                        Y
+                    */
+
+                    const y =
+                        13 *
+                        Math.cos(angle)
+
+                        - 5 *
+                        Math.cos(
+                            2 * angle
+                        )
+
+                        - 2 *
+                        Math.cos(
+                            3 * angle
+                        )
+
+                        - Math.cos(
+                            4 * angle
+                        );
+
+
+
+                    /*
+                        CREATE HEART
+                    */
+
+                    const heart =
+                        document.createElement("span");
+
+
+                    heart.classList.add(
+                        "heart"
                     );
 
 
-
-                /*
-                    Y
-                */
-
-                const y =
-                    13 * Math.cos(angle)
-
-                    - 5 *
-                    Math.cos(2 * angle)
-
-                    - 2 *
-                    Math.cos(3 * angle)
-
-                    - Math.cos(4 * angle);
+                    heart.innerHTML = "♥";
 
 
 
-                /*
-                    Buat element ♥
-                */
+                    /*
+                        POSITION
+                    */
 
-                const heart =
-                    document.createElement("span");
-
-
-                heart.classList.add("heart");
+                    const screenX =
+                        x * scale;
 
 
-                heart.innerHTML = "♥";
+                    const screenY =
+                        -y * scale;
 
 
-
-                /*
-                    Posisi
-                */
-
-                const screenX =
-                    x * scale;
+                    heart.style.left =
+                        `calc(
+                            50% + ${screenX}px
+                        )`;
 
 
-                const screenY =
-                    -y * scale;
+                    heart.style.top =
+                        `calc(
+                            50% + ${screenY}px
+                        )`;
 
 
 
-                heart.style.left =
-                    `calc(50% + ${screenX}px)`;
+                    /*
+                        RANDOM SIZE
+                    */
+
+                    const size =
+                        8 +
+                        Math.random() * 7;
 
 
-                heart.style.top =
-                    `calc(50% + ${screenY}px)`;
-
-
-
-                /*
-                    Random size
-                */
-
-                const size =
-                    8 +
-                    Math.random() * 7;
-
-
-                heart.style.fontSize =
-                    `${size}px`;
+                    heart.style.fontSize =
+                        `${size}px`;
 
 
 
-                /*
-                    Warna
-                */
+                    /*
+                        RANDOM COLOR
+                    */
 
-                const colors = [
+                    const colors = [
 
-                    "#ff4f81",
-                    "#ff6b9a",
-                    "#ff3366",
-                    "#ff8fab",
-                    "#ff1744"
+                        "#ff4f81",
+                        "#ff6b9a",
+                        "#ff3366",
+                        "#ff8fab",
+                        "#ff1744"
 
-                ];
-
-
-                heart.style.color =
-                    colors[
-                        Math.floor(
-                            Math.random() *
-                            colors.length
-                        )
                     ];
 
 
-
-                /*
-                    Masukkan heart
-                */
-
-                heartContainer.appendChild(
-                    heart
-                );
-
-
-
-                /*
-                    Delay satu per satu
-                */
-
-                heart.style.animationDelay =
-                    `${i * 0.025}s`;
-
-            }
+                    heart.style.color =
+                        colors[
+                            Math.floor(
+                                Math.random() *
+                                colors.length
+                            )
+                        ];
 
 
 
-            /*
-                Setelah semua love selesai
-            */
+                    /*
+                        ADD TO PAGE
+                    */
 
-            setTimeout(() => {
-
-                heartContainer.classList.add(
-                    "finished"
-                );
-
-            }, 3500);
-
-
-
-            /*
-                Tampilkan pesan pertama
-            */
-
-            setTimeout(() => {
-
-                message.classList.add(
-                    "show"
-                );
-
-            }, 5000);
-
-
-
-            /*
-                Setelah pesan pertama,
-                masuk Scene 2
-            */
-
-            setTimeout(() => {
-
-
-                message.classList.remove(
-                    "show"
-                );
-
-
-                setTimeout(() => {
-
-                    scene2.classList.add(
-                        "show"
+                    heartContainer.appendChild(
+                        heart
                     );
 
-                }, 1000);
 
 
-            }, 7000);
+                    /*
+                        ONE BY ONE
+                    */
 
-        });
+                    heart.style.animationDelay =
+                        `${i * 0.025}s`;
+
+                }
+
+
+
+                /*
+                    Heart selesai
+                */
+
+                setTimeout(
+                    () => {
+
+                        heartContainer.classList.add(
+                            "finished"
+                        );
+
+                    },
+                    3500
+                );
+
+
+
+                /*
+                    First message
+                */
+
+                setTimeout(
+                    () => {
+
+                        message.classList.add(
+                            "show"
+                        );
+
+                    },
+                    5000
+                );
+
+
+
+                /*
+                    Masuk Scene 2
+                */
+
+                setTimeout(
+                    () => {
+
+
+                        message.classList.remove(
+                            "show"
+                        );
+
+
+                        setTimeout(
+                            () => {
+
+                                scene2.classList.add(
+                                    "show"
+                                );
+
+                            },
+                            1000
+                        );
+
+
+                    },
+                    7000
+                );
+
+            }
+        );
 
 
 
         /* =========================================
-           CONTINUE BUTTON
+           SCENE 2 → SCENE 3
         ========================================= */
 
         continueButton.addEventListener(
             "click",
             () => {
 
+
+                /*
+                    Hilangkan Scene 2
+                */
+
                 scene2.classList.remove(
                     "show"
                 );
 
+
+
                 /*
-                    SCENE 3
-                    Nanti kita masukin di sini.
+                    Tunggu transisi
+                    kemudian Scene 3
                 */
+
+                setTimeout(
+                    () => {
+
+                        scene3.classList.add(
+                            "show"
+                        );
+
+                    },
+                    1000
+                );
 
             }
         );
 
+
+
+        /* =========================================
+           MEMORY BUTTON
+        ========================================= */
+
+        memoryButton.addEventListener(
+            "click",
+            () => {
+
+                /*
+                    SCENE 4
+                    Akan kita isi nanti.
+                */
+
+                console.log(
+                    "Scene 4 coming soon..."
+                );
+
+            }
+        );
+
+
     </script>
 
 </body>
+
 </html>
 ```
