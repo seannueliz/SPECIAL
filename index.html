@@ -1,79 +1,116 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>For You ♡</title>
 
     <style>
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+
         body {
             width: 100%;
             height: 100vh;
+
             overflow: hidden;
+
             background: #050505;
-            font-family: Arial, sans-serif;
+
             color: white;
+
+            font-family: Arial, sans-serif;
         }
+
+
+        /* =========================================
+           OPENING
+        ========================================= */
 
         .container {
             width: 100%;
-            height: 100%;
+            height: 100vh;
+
             display: flex;
+
             justify-content: center;
             align-items: center;
+
             flex-direction: column;
         }
 
-        /* =========================
-           OPENING
-        ========================= */
 
         #opening {
             text-align: center;
+
             transition: 1s ease;
+
+            z-index: 5;
         }
+
 
         #opening h1 {
             font-size: 24px;
+
             font-weight: 400;
+
             margin-bottom: 25px;
+
             opacity: 0.9;
         }
 
+
         #openButton {
             padding: 14px 32px;
+
             border: 1px solid rgba(255,255,255,0.4);
+
             border-radius: 50px;
+
             background: rgba(255,255,255,0.05);
+
             color: white;
+
             font-size: 16px;
+
             cursor: pointer;
+
             transition: 0.3s;
+
             backdrop-filter: blur(10px);
         }
 
+
         #openButton:hover {
             background: rgba(255,255,255,0.15);
+
             transform: scale(1.05);
         }
 
+
         #opening.hide {
             opacity: 0;
+
             pointer-events: none;
         }
 
-        /* =========================
+
+
+        /* =========================================
            HEART
-        ========================= */
+        ========================================= */
 
         #heartContainer {
+
             position: absolute;
+
             width: 500px;
             height: 500px;
 
@@ -81,19 +118,27 @@
             top: 50%;
 
             transform: translate(-50%, -50%);
+
             pointer-events: none;
+
+            z-index: 3;
         }
 
+
         .heart {
+
             position: absolute;
 
             left: 50%;
             top: 50%;
 
             font-size: 12px;
+
             color: #ff4f81;
 
-            transform: translate(-50%, -50%) scale(0);
+            transform:
+                translate(-50%, -50%)
+                scale(0);
 
             opacity: 0;
 
@@ -101,103 +146,432 @@
                 0 0 5px #ff4f81,
                 0 0 12px #ff4f81;
 
-            animation: appear 0.45s ease forwards;
+            animation:
+                appear 0.45s ease forwards;
         }
+
 
         @keyframes appear {
+
             0% {
+
                 opacity: 0;
-                transform: translate(-50%, -50%) scale(0);
+
+                transform:
+                    translate(-50%, -50%)
+                    scale(0);
             }
+
 
             60% {
+
                 opacity: 1;
-                transform: translate(-50%, -50%) scale(1.4);
+
+                transform:
+                    translate(-50%, -50%)
+                    scale(1.4);
             }
 
+
             100% {
+
                 opacity: 1;
-                transform: translate(-50%, -50%) scale(1);
+
+                transform:
+                    translate(-50%, -50%)
+                    scale(1);
             }
         }
 
-        /* =========================
-           FINAL MESSAGE
-        ========================= */
+
+        /* =========================================
+           HEARTBEAT
+        ========================================= */
+
+        #heartContainer.finished .heart {
+
+            animation:
+                heartbeat 2s ease-in-out infinite;
+        }
+
+
+        @keyframes heartbeat {
+
+            0%, 100% {
+
+                transform:
+                    translate(-50%, -50%)
+                    scale(1);
+
+                filter: brightness(1);
+            }
+
+
+            50% {
+
+                transform:
+                    translate(-50%, -50%)
+                    scale(1.15);
+
+                filter: brightness(1.5);
+            }
+        }
+
+
+
+        /* =========================================
+           FIRST MESSAGE
+        ========================================= */
 
         #message {
+
             position: absolute;
+
             left: 50%;
             top: 50%;
 
-            transform: translate(-50%, -50%);
+            transform:
+                translate(-50%, -50%);
 
             text-align: center;
 
             opacity: 0;
+
             pointer-events: none;
 
             transition: 2s ease;
+
+            z-index: 10;
         }
 
+
         #message.show {
+
             opacity: 1;
         }
 
+
         #message h2 {
+
             font-size: 38px;
+
             margin-bottom: 12px;
         }
 
+
         #message p {
+
             font-size: 16px;
+
             opacity: 0.7;
         }
 
-        /* Heart selesai berdenyut */
 
-        #heartContainer.finished .heart {
-            animation:
-                appear 0.45s ease forwards,
-                heartbeat 2s ease-in-out infinite 1s;
+
+        /* =========================================
+           SCENE 2
+        ========================================= */
+
+        #scene2 {
+
+            position: fixed;
+
+            inset: 0;
+
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            background: #050505;
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            transition:
+                opacity 1.5s ease,
+                visibility 1.5s ease;
+
+            z-index: 20;
         }
 
-        @keyframes heartbeat {
-            0%, 100% {
-                filter: brightness(1);
+
+        #scene2.show {
+
+            opacity: 1;
+
+            visibility: visible;
+        }
+
+
+        .scene-content {
+
+            text-align: center;
+
+            max-width: 600px;
+
+            padding: 30px;
+        }
+
+
+
+        /* =========================================
+           SCENE 2 TEXT
+        ========================================= */
+
+        .small-text {
+
+            font-size: 12px;
+
+            letter-spacing: 5px;
+
+            opacity: 0;
+
+            transform:
+                translateY(20px);
+
+            transition:
+                1s ease;
+        }
+
+
+        .scene-content h2 {
+
+            margin-top: 25px;
+
+            font-size: 32px;
+
+            font-weight: 400;
+
+            opacity: 0;
+
+            transform:
+                translateY(20px);
+
+            transition:
+                1s ease 0.5s;
+        }
+
+
+        .description {
+
+            margin-top: 20px;
+
+            font-size: 16px;
+
+            line-height: 1.8;
+
+            opacity: 0;
+
+            transform:
+                translateY(20px);
+
+            transition:
+                1s ease 1s;
+        }
+
+
+        .scene-content h1 {
+
+            margin-top: 35px;
+
+            font-size: 42px;
+
+            opacity: 0;
+
+            transform:
+                scale(0.8);
+
+            transition:
+                1s ease 1.5s;
+
+            text-shadow:
+                0 0 10px rgba(255, 79, 129, 0.5),
+                0 0 30px rgba(255, 79, 129, 0.2);
+        }
+
+
+
+        /* =========================================
+           CONTINUE BUTTON
+        ========================================= */
+
+        #continueButton {
+
+            margin-top: 45px;
+
+            padding: 13px 28px;
+
+            border-radius: 50px;
+
+            border:
+                1px solid rgba(255,255,255,0.25);
+
+            background:
+                rgba(255,255,255,0.05);
+
+            color: white;
+
+            cursor: pointer;
+
+            font-size: 14px;
+
+            opacity: 0;
+
+            transform:
+                translateY(15px);
+
+            transition:
+                opacity 1s ease 2.3s,
+                transform 1s ease 2.3s,
+                background 0.3s ease;
+        }
+
+
+        #continueButton:hover {
+
+            background:
+                rgba(255,255,255,0.15);
+
+            transform:
+                translateY(-2px)
+                scale(1.05);
+        }
+
+
+
+        /* =========================================
+           SCENE 2 ANIMATION
+        ========================================= */
+
+        #scene2.show .small-text {
+
+            opacity: 0.6;
+
+            transform:
+                translateY(0);
+        }
+
+
+        #scene2.show h2 {
+
+            opacity: 1;
+
+            transform:
+                translateY(0);
+        }
+
+
+        #scene2.show .description {
+
+            opacity: 0.75;
+
+            transform:
+                translateY(0);
+        }
+
+
+        #scene2.show h1 {
+
+            opacity: 1;
+
+            transform:
+                scale(1);
+        }
+
+
+        #scene2.show #continueButton {
+
+            opacity: 1;
+
+            transform:
+                translateY(0);
+        }
+
+
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        @media (max-width: 600px) {
+
+            #heartContainer {
+
+                width: 350px;
+
+                height: 350px;
             }
 
-            50% {
-                transform: translate(-50%, -50%) scale(1.15);
-                filter: brightness(1.5);
+
+            .scene-content h2 {
+
+                font-size: 25px;
+            }
+
+
+            .scene-content h1 {
+
+                font-size: 32px;
+            }
+
+
+            .description {
+
+                font-size: 14px;
             }
         }
+
     </style>
 </head>
 
+
 <body>
+
+
+    <!-- =========================================
+         OPENING
+    ========================================= -->
 
     <div class="container">
 
         <div id="opening">
 
-            <h1>I made something for you...</h1>
+            <h1>
+                I made something for you...
+            </h1>
+
 
             <button id="openButton">
+
                 Open ♡
+
             </button>
 
         </div>
 
     </div>
 
-    <!-- Tempat heart dibuat -->
+
+
+    <!-- =========================================
+         HEART CONTAINER
+    ========================================= -->
+
     <div id="heartContainer"></div>
 
-    <!-- Pesan akhir -->
+
+
+    <!-- =========================================
+         FIRST MESSAGE
+    ========================================= -->
+
     <div id="message">
 
-        <h2>Happy Birthday Azelia Zerlina HR!!!♡</h2>
+        <h2>
+            Happy Birthday ♡
+        </h2>
 
         <p>
             I hope your day is as special as you are.
@@ -206,28 +580,108 @@
     </div>
 
 
+
+    <!-- =========================================
+         SCENE 2
+    ========================================= -->
+
+    <div id="scene2">
+
+        <div class="scene-content">
+
+
+            <p class="small-text">
+
+                HEY, YOU...
+
+            </p>
+
+
+            <h2>
+
+                Today is a little different.
+
+            </h2>
+
+
+            <p class="description">
+
+                Because today is the day<br>
+
+                someone really special was born.
+
+            </p>
+
+
+            <h1>
+
+                Happy Birthday ♡
+
+            </h1>
+
+
+            <button id="continueButton">
+
+                Continue →
+
+            </button>
+
+
+        </div>
+
+    </div>
+
+
+
     <script>
 
-        const button = document.getElementById("openButton");
-        const opening = document.getElementById("opening");
-        const heartContainer = document.getElementById("heartContainer");
-        const message = document.getElementById("message");
 
+        /* =========================================
+           ELEMENTS
+        ========================================= */
+
+        const button =
+            document.getElementById("openButton");
+
+        const opening =
+            document.getElementById("opening");
+
+        const heartContainer =
+            document.getElementById("heartContainer");
+
+        const message =
+            document.getElementById("message");
+
+        const scene2 =
+            document.getElementById("scene2");
+
+        const continueButton =
+            document.getElementById("continueButton");
+
+
+
+        /* =========================================
+           OPEN BUTTON
+        ========================================= */
 
         button.addEventListener("click", () => {
 
-            // Hilangkan opening
+
+            /*
+                Hilangkan opening
+            */
+
             opening.classList.add("hide");
 
 
+
             /*
-                ==========================================
                 HEART EQUATION
-                ==========================================
 
-                Ini diambil dari kode Python lu:
+                Rumus dari Python lu:
 
-                x = 16 * (sin(angle)^3)
+                x =
+                16 * sin(angle)^3
 
                 y =
                 13cos(angle)
@@ -236,142 +690,232 @@
                 - cos(4angle)
             */
 
+
             const total = 120;
 
             const scale = 16;
 
 
+
+            /*
+                Buat 120 love
+            */
+
             for (let i = 0; i < total; i++) {
 
+
                 const angle =
-                    i * (Math.PI * 2) / total;
+                    i *
+                    (Math.PI * 2) /
+                    total;
 
-
-                // Rumus X
-                const x =
-                    16 *
-                    Math.pow(Math.sin(angle), 3);
-
-
-                // Rumus Y
-                const y =
-                    13 * Math.cos(angle)
-                    - 5 * Math.cos(2 * angle)
-                    - 2 * Math.cos(3 * angle)
-                    - Math.cos(4 * angle);
 
 
                 /*
-                    Buat love
+                    X
                 */
 
-                const heart = document.createElement("span");
+                const x =
+                    16 *
+                    Math.pow(
+                        Math.sin(angle),
+                        3
+                    );
+
+
+
+                /*
+                    Y
+                */
+
+                const y =
+                    13 * Math.cos(angle)
+
+                    - 5 *
+                    Math.cos(2 * angle)
+
+                    - 2 *
+                    Math.cos(3 * angle)
+
+                    - Math.cos(4 * angle);
+
+
+
+                /*
+                    Buat element ♥
+                */
+
+                const heart =
+                    document.createElement("span");
+
 
                 heart.classList.add("heart");
+
 
                 heart.innerHTML = "♥";
 
 
+
                 /*
-                    Convert koordinat matematika
-                    menjadi posisi layar.
+                    Posisi
                 */
 
-                const screenX = x * scale;
+                const screenX =
+                    x * scale;
 
-                const screenY = -y * scale;
+
+                const screenY =
+                    -y * scale;
+
 
 
                 heart.style.left =
                     `calc(50% + ${screenX}px)`;
 
+
                 heart.style.top =
                     `calc(50% + ${screenY}px)`;
 
 
+
                 /*
-                    Sedikit variasi ukuran
-                    biar tidak terlalu kaku.
+                    Random size
                 */
 
                 const size =
-                    8 + Math.random() * 7;
+                    8 +
+                    Math.random() * 7;
+
 
                 heart.style.fontSize =
                     `${size}px`;
 
 
+
                 /*
-                    Warna random pink/red
+                    Warna
                 */
 
                 const colors = [
+
                     "#ff4f81",
                     "#ff6b9a",
                     "#ff3366",
                     "#ff8fab",
                     "#ff1744"
+
                 ];
+
 
                 heart.style.color =
                     colors[
                         Math.floor(
-                            Math.random() * colors.length
+                            Math.random() *
+                            colors.length
                         )
                     ];
 
 
+
                 /*
-                    Masukkan ke halaman
+                    Masukkan heart
                 */
 
-                heartContainer.appendChild(heart);
+                heartContainer.appendChild(
+                    heart
+                );
+
 
 
                 /*
-                    INI BAGIAN PENTING.
-
-                    Setiap love muncul
-                    dengan delay berbeda.
-
-                    Jadi bukan langsung muncul semua.
+                    Delay satu per satu
                 */
 
                 heart.style.animationDelay =
                     `${i * 0.025}s`;
+
             }
 
 
+
             /*
-                Total waktu:
-
-                120 × 0.025
-                = 3 detik
-
-                Setelah itu heart selesai.
+                Setelah semua love selesai
             */
 
             setTimeout(() => {
 
-                heartContainer.classList.add("finished");
+                heartContainer.classList.add(
+                    "finished"
+                );
 
             }, 3500);
 
 
+
             /*
-                Setelah heart selesai,
-                munculkan pesan.
+                Tampilkan pesan pertama
             */
 
             setTimeout(() => {
 
-                message.classList.add("show");
+                message.classList.add(
+                    "show"
+                );
 
             }, 5000);
 
+
+
+            /*
+                Setelah pesan pertama,
+                masuk Scene 2
+            */
+
+            setTimeout(() => {
+
+
+                message.classList.remove(
+                    "show"
+                );
+
+
+                setTimeout(() => {
+
+                    scene2.classList.add(
+                        "show"
+                    );
+
+                }, 1000);
+
+
+            }, 7000);
+
         });
+
+
+
+        /* =========================================
+           CONTINUE BUTTON
+        ========================================= */
+
+        continueButton.addEventListener(
+            "click",
+            () => {
+
+                scene2.classList.remove(
+                    "show"
+                );
+
+                /*
+                    SCENE 3
+                    Nanti kita masukin di sini.
+                */
+
+            }
+        );
 
     </script>
 
 </body>
 </html>
+```
